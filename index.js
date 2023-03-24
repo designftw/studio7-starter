@@ -29,8 +29,8 @@ dom.tasksList.addEventListener("keydown", e => {
 	if (e.key === "Enter" && !e.repeat) {
 		addItem();
 	}
-	else if (e.key === "Backspace" && li.querySelector(".title")?.value.length === 0 && !e.repeat) {
-		const previousSibling = li.previousElementSibling; 
+	else if (e.key === "Backspace" && e.target.value.length === 0 && !e.repeat) {
+		const previousSibling = li.previousElementSibling;
 		li.querySelector(".delete").click();
 		focusTask(previousSibling ?? dom.tasksList.firstElementChild);
 		e.preventDefault(); // prevent data corruption
