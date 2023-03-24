@@ -18,24 +18,6 @@ else {
 	addItem();
 }
 
-// Keyboard shortcuts
-dom.tasksList.addEventListener("keyup", e => {
-	if (!e.target.matches("input.title")) {
-		// We are only interested in key events on the text field
-		return;
-	}
-
-	let li = e.target.closest("li");
-
-	if (e.key === "Enter") {
-		addItem();
-	}
-	else if (e.key === "Backspace" && e.target.previousValue === "") {
-		li.querySelector(".delete").click();
-	}
-});
-
-
 dom.tasksList.addEventListener("keydown", e => {
 	if (!e.target.matches("input.title")) {
 		// We are only interested in key events on the text field
@@ -44,10 +26,14 @@ dom.tasksList.addEventListener("keydown", e => {
 
 	let li = e.target.closest("li");
 
-	if (e.key === "Backspace") {
-		// Store previous value so we know whether to delete on keyup
-		// (which is fired after the value has changed)
-		e.target.previousValue = e.target.value;
+	if (e.key === "Enter" && !e.repeat) {
+		addItem();
+	}
+	else if (e.key === "Backspace" && li.querySelector(".title")?.value.length === 0 && !e.repeat) {
+		const previousSibling = li.previousElementSibling; 
+		li.querySelector(".delete").click();
+		focusTask(previousSibling ?? dom.tasksList.firstElementChild);
+		e.preventDefault(); // prevent data corruption
 	}
 });
 
