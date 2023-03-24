@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+<meta charset="UTF-8">
+<title>Yet Another To-Do List</title>
+<link rel="icon" href='data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><text y=".9em" font-size="90">✅</text></svg>'>
+<link rel="stylesheet" href="style.css">
+<script type="module">
+import * as app from './index.js';
+globalThis.app = app;
+</script>
+
+</head>
+<body>
+	<div id="app">
+		<h1><span id="done_count">0</span> done of <span id="total_count">1</span> total</h1>
+		<ul id="tasks_list"></ul>
+		<template id="task_template">
+			<li>
+				<input type="checkbox" aria-label="Done?" class="done">
+				<input type="text" aria-label="Task" class="title">
+				<button class="delete">x</button>
+			</li>
+		</template>
+
+		<button onclick="app.addItem()">Add item</button>
+		<button>Clear completed</button>
+	</div>
+</body>
+</html>
